@@ -7,6 +7,7 @@ class QuestionWidget extends StatefulWidget {
   final String? selectedOption;
   final String? initialValue;
   final String? hintInputText;
+  final TextInputType? keyboardType;
   final void Function(String)? onOptionChanged;
   final void Function(String)? onTextChanged;
 
@@ -19,6 +20,7 @@ class QuestionWidget extends StatefulWidget {
     this.onOptionChanged,
     this.onTextChanged,
     this.initialValue,
+    this.keyboardType,
     this.hintInputText = 'Masukkan jawaban',
   });
 
@@ -37,7 +39,6 @@ class _QuestionWidgetState extends State<QuestionWidget> {
 
   @override
   void dispose() {
-    // Jangan lupa untuk membersihkan controller
     textController.dispose();
     super.dispose();
   }
@@ -76,7 +77,11 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                           }
                         },
                       ),
-                      Text(option),
+                      Text(option, style: const TextStyle(
+                        fontFamily: 'Poppins',
+                        fontSize: 12.5,
+                        fontWeight: FontWeight.normal
+                      )),
                     ],
                   );
                 }).toList(),
@@ -90,6 +95,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                   widget.onTextChanged!(value);
                 }
               },
+              keyboardType: widget.keyboardType != null ? widget.keyboardType : TextInputType.text,
               decoration: InputDecoration(
                 border: const OutlineInputBorder(),
                 hintText: widget.hintInputText,

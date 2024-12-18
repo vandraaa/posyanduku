@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:prototype_posyandu/utilities/constants.dart';
-import 'package:prototype_posyandu/widgets/questions/questions.dart';
+import 'package:prototype_posyandu/data/question_data.dart';
 
 class Step2 extends StatefulWidget {
   final Function(Map<String, String>) onUpdateAnswers;
   final Map<String, String> selectedAnswer;
+  final Function(String) onCategorySelected;
 
-  const Step2({super.key, required this.onUpdateAnswers, required this.selectedAnswer});
+  const Step2({
+    super.key,
+    required this.onUpdateAnswers,
+    required this.selectedAnswer,
+    required this.onCategorySelected,
+  });
 
   @override
   State<Step2> createState() => _Step2State();
@@ -14,7 +19,7 @@ class Step2 extends StatefulWidget {
 
 class _Step2State extends State<Step2> {
   late Map<String, String> answersStep2;
-  String? selectedCategory;
+  String? selectedCategoryKey;
 
   @override
   void initState() {
@@ -26,13 +31,14 @@ class _Step2State extends State<Step2> {
     setState(() {
       answersStep2[questionKey] = value;
     });
-    widget.onUpdateAnswers(answersStep2); 
+    widget.onUpdateAnswers(answersStep2);
   }
 
-  void selectCategory(String category) {
+  void selectCategory(String key) {
     setState(() {
-      selectedCategory = category;
+      selectedCategoryKey = key;
     });
+    widget.onCategorySelected(key);
   }
 
   @override
@@ -41,79 +47,59 @@ class _Step2State extends State<Step2> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            if (selectedCategory == null)
-              Column(
-                children: [
-                  _buildCategoryCard(questionnareType1, descQuestionnareType1),
-                  _buildCategoryCard(questionnareType2, descQuestionnareType2),
-                  _buildCategoryCard(questionnareType3, descQuestionnareType3),
-                ],
-              )
-            else
-              Column(
-                children: [
-                  QuestionWidget(
-                    questionText: 'Kuisioner 1 untuk Dewasa/Lansia \n(Ya/Tidak)',
-                    isRadio: true,
-                    radioOptions: const ['Ya', 'Tidak'],
-                    selectedOption: answersStep2['question1'],
-                    onOptionChanged: (selected) => updateAnswer('question1', selected),
-                  ),
-                  QuestionWidget(
-                    questionText: 'Kuisioner 2 untuk Dewasa/Lansia \n(Ya/Tidak)',
-                    isRadio: true,
-                    radioOptions: const ['Ya', 'Tidak'],
-                    selectedOption: answersStep2['question2'],
-                    onOptionChanged: (selected) => updateAnswer('question2', selected),
-                  ),
-                  QuestionWidget(
-                    questionText: 'Kuisioner 3 untuk Dewasa/Lansia \n(Ya/Tidak)',
-                    isRadio: true,
-                    radioOptions: const ['Ya', 'Tidak'],
-                    selectedOption: answersStep2['question3'],
-                    onOptionChanged: (selected) => updateAnswer('question3', selected),
-                  ),
-                  QuestionWidget(
-                    questionText: 'Kuisioner 4 untuk Dewasa/Lansia \n(Ya/Tidak)',
-                    isRadio: true,
-                    radioOptions: const ['Ya', 'Tidak'],
-                    selectedOption: answersStep2['question4'],
-                    onOptionChanged: (selected) => updateAnswer('question4', selected),
-                  ),
-                  QuestionWidget(
-                    questionText: 'Kuisioner 5 untuk Dewasa/Lansia \n(Ya/Tidak)',
-                    isRadio: true,
-                    radioOptions: const ['Ya', 'Tidak'],
-                    selectedOption: answersStep2['question5'],
-                    onOptionChanged: (selected) => updateAnswer('question5', selected),
-                  ),
-                ],
-              ),
+            Column(
+              children: questionnareOptions.map((option) {
+                return _buildCategoryCard(
+                  option['key']!,
+                  option['title']!,
+                  option['description']!,
+                );
+              }).toList(),
+            ),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildCategoryCard(String title, String description) {
-    return Card(
+  Widget _buildCategoryCard(String key, String title, String description) {
+    bool isSelected = selectedCategoryKey == key;
+    return Container(
       margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 20.0),
-        child: ListTile(
-        title: Text(title, style: const TextStyle(
-          fontFamily: 'Poppins',
-          fontWeight: FontWeight.w600,
-          fontSize: 16,
-        )),
-        subtitle: Text(description, style: const TextStyle(
-          fontFamily: 'Poppins',
-          fontWeight: FontWeight.w400,
-          fontSize: 13,
-        )),
-        onTap: () => selectCategory(title),
+      decoration: BoxDecoration(
+        border: isSelected
+            ? Border.all(color: Colors.blue, width: 2)
+            : Border.all(color: Colors.transparent, width: 2),
+        borderRadius: BorderRadius.circular(8.0),
       ),
-      ) 
+      child: Card(
+        elevation: 0.0,
+        margin: EdgeInsets.zero,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 20.0),
+          child: ListTile(
+            title: Text(
+              title,
+              style: const TextStyle(
+                fontFamily: 'Poppins',
+                fontWeight: FontWeight.w600,
+                fontSize: 16,
+              ),
+            ),
+            subtitle: Text(
+              description,
+              style: const TextStyle(
+                fontFamily: 'Poppins',
+                fontWeight: FontWeight.w400,
+                fontSize: 13,
+              ),
+            ),
+            onTap: () => selectCategory(key),
+            splashColor: Colors.transparent,
+            hoverColor: Colors.transparent,
+          ),
+        ),
+      ),
     );
   }
 }
