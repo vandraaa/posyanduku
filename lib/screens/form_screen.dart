@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:prototype_posyandu/data/question_data.dart';
+import 'package:prototype_posyandu/screens/bluetooth_print_screen.dart';
 import 'package:prototype_posyandu/screens/find_patients_screen.dart';
 import 'package:prototype_posyandu/widgets/steps/step1.dart';
 import 'package:prototype_posyandu/widgets/steps/step2.dart';
@@ -9,10 +10,7 @@ import 'package:prototype_posyandu/widgets/steps/step4.dart';
 class FormScreen extends StatefulWidget {
   final Map<String, dynamic>? patientData;
 
-  const FormScreen({
-    super.key,
-    required this.patientData
-  });
+  const FormScreen({super.key, required this.patientData});
 
   @override
   State<FormScreen> createState() => _FormScreenState();
@@ -23,7 +21,7 @@ class _FormScreenState extends State<FormScreen> {
 
   Map<String, String> _step1Answers = {};
   Map<String, String> _step3Answers = {};
-  String _selectedCategory = ''; 
+  String _selectedCategory = '';
 
   void _updateStep1Answers(Map<String, String> answers) {
     setState(() {
@@ -100,6 +98,12 @@ class _FormScreenState extends State<FormScreen> {
     // print("Answer1 : " + _step1Answers['question1'].toString());
     // print("UserData : " + _selectedCategory.toString());
     // print("UserData : " + _step3Answers.toString());
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => BluetoothPrintScreen(),
+      ),
+    );
   }
 
   @override
