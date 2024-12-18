@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prototype_posyandu/data/question_data.dart';
 import 'package:prototype_posyandu/screens/find_patients_screen.dart';
 import 'package:prototype_posyandu/widgets/steps/step1.dart';
 import 'package:prototype_posyandu/widgets/steps/step2.dart';
@@ -21,19 +22,12 @@ class _FormScreenState extends State<FormScreen> {
   int _currentStep = 0;
 
   Map<String, String> _step1Answers = {};
-  Map<String, String> _step2Answers = {};
   Map<String, String> _step3Answers = {};
   String _selectedCategory = ''; 
 
   void _updateStep1Answers(Map<String, String> answers) {
     setState(() {
       _step1Answers = answers;
-    });
-  }
-
-  void _updateStep2Answers(Map<String, String> answers) {
-    setState(() {
-      _step2Answers = answers;
     });
   }
 
@@ -55,8 +49,7 @@ class _FormScreenState extends State<FormScreen> {
           selectedAnswer: _step1Answers,
         ),
         Step2(
-          onUpdateAnswers: _updateStep2Answers,
-          selectedAnswer: _step2Answers,
+          selectedCategory: _selectedCategory,
           onCategorySelected: _setCategory,
         ),
         Step3(
@@ -71,16 +64,16 @@ class _FormScreenState extends State<FormScreen> {
       ];
 
   double _calculateStep1Percentage() {
-    int totalQuestions = _step1Answers.length;
+    int totalQuestions = step1Questions.length + step1RadioQuestion.length;
     int answeredQuestions =
         _step1Answers.values.where((answer) => answer.isNotEmpty).length;
     return totalQuestions == 0 ? 0.0 : answeredQuestions / totalQuestions;
   }
 
   double _calculateStep2Percentage() {
-    int totalQuestions = _step2Answers.length;
+    int totalQuestions = questionsForCategory(_selectedCategory).length;
     int answeredQuestions =
-        _step2Answers.values.where((answer) => answer.isNotEmpty).length;
+        _step3Answers.values.where((answer) => answer.isNotEmpty).length;
     return totalQuestions == 0 ? 0.0 : answeredQuestions / totalQuestions;
   }
 
@@ -103,19 +96,10 @@ class _FormScreenState extends State<FormScreen> {
   }
 
   void _saveForm() {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Form Saved'),
-        content: const Text('Your form has been saved successfully!'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('OK'),
-          ),
-        ],
-      ),
-    );
+    // print("UserData : " + widget.patientData.toString());
+    // print("Answer1 : " + _step1Answers['question1'].toString());
+    // print("UserData : " + _selectedCategory.toString());
+    // print("UserData : " + _step3Answers.toString());
   }
 
   @override
