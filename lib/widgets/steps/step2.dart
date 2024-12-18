@@ -2,14 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:prototype_posyandu/data/question_data.dart';
 
 class Step2 extends StatefulWidget {
-  final Function(Map<String, String>) onUpdateAnswers;
-  final Map<String, String> selectedAnswer;
+  final String? selectedCategory;
   final Function(String) onCategorySelected;
 
   const Step2({
     super.key,
-    required this.onUpdateAnswers,
-    required this.selectedAnswer,
+    required this.selectedCategory,
     required this.onCategorySelected,
   });
 
@@ -24,14 +22,6 @@ class _Step2State extends State<Step2> {
   @override
   void initState() {
     super.initState();
-    answersStep2 = Map.from(widget.selectedAnswer);
-  }
-
-  void updateAnswer(String questionKey, String value) {
-    setState(() {
-      answersStep2[questionKey] = value;
-    });
-    widget.onUpdateAnswers(answersStep2);
   }
 
   void selectCategory(String key) {
@@ -63,7 +53,7 @@ class _Step2State extends State<Step2> {
   }
 
   Widget _buildCategoryCard(String key, String title, String description) {
-    bool isSelected = selectedCategoryKey == key;
+    bool isSelected = widget.selectedCategory == key;
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
       decoration: BoxDecoration(

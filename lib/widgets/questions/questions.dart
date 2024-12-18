@@ -95,7 +95,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                   widget.onTextChanged!(value);
                 }
               },
-              keyboardType: widget.keyboardType != null ? widget.keyboardType : TextInputType.text,
+              keyboardType: widget.keyboardType ?? TextInputType.text,
               decoration: InputDecoration(
                 border: const OutlineInputBorder(),
                 hintText: widget.hintInputText,
