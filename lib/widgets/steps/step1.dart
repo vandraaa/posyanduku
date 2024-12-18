@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:prototype_posyandu/utilities/constants.dart';
 import 'package:prototype_posyandu/widgets/questions/questions.dart';
+import 'package:prototype_posyandu/data/question_data.dart';
 
 class Step1 extends StatefulWidget {
   final Function(Map<String, String>) onUpdateAnswers;
@@ -25,7 +25,7 @@ class _Step1State extends State<Step1> {
     setState(() {
       answersStep1[questionKey] = value;
     });
-    widget.onUpdateAnswers(answersStep1); 
+    widget.onUpdateAnswers(answersStep1);
   }
 
   @override
@@ -34,47 +34,22 @@ class _Step1State extends State<Step1> {
       body: SingleChildScrollView(
         child: Column(
           children: [
+            ...step1Questions.map((question) => QuestionWidget(
+                  questionText: question['questionText']!,
+                  hintInputText: question['hintInputText'],
+                  isRadio: question['isRadio'],
+                  keyboardType: question['keyboardType'],
+                  initialValue: answersStep1[question['key']] ?? '',
+                  onTextChanged: question['isRadio'] == false
+                      ? (value) => updateAnswer(question['key'], value)
+                      : null,
+                )),
             QuestionWidget(
-              questionText: step1Question1Text,
-              hintInputText: step1HintQuestion1,
-              isRadio: false,
-              initialValue: answersStep1['question1'] ?? '',
-              onTextChanged: (value) => updateAnswer('question1', value),
-            ),
-            QuestionWidget(
-              questionText: step1Question2Text,
-              hintInputText: step1HintQuestion2,
-              isRadio: false,
-              initialValue: answersStep1['question2'] ?? '',
-              onTextChanged: (value) => updateAnswer('question2', value),
-            ),
-            QuestionWidget(
-              questionText: step1Question3Text,
-              hintInputText: step1HintQuestion3,
-              isRadio: false,
-              initialValue: answersStep1['question3'] ?? '',
-              onTextChanged: (value) => updateAnswer('question3', value),
-            ),
-            QuestionWidget(
-              questionText: step1Question4Text,
-              hintInputText: step1HintQuestion4,
-              isRadio: false,
-              initialValue: answersStep1['question4'] ?? '',
-              onTextChanged: (value) => updateAnswer('question4', value),
-            ),
-            QuestionWidget(
-              questionText: step1Question5Text,
-              hintInputText: step1HintQuestion5,
-              isRadio: false,
-              initialValue: answersStep1['question5'] ?? '',
-              onTextChanged: (value) => updateAnswer('question5', value),
-            ),
-            QuestionWidget(
-              questionText: step1Question6Text,
-              isRadio: true,
-              radioOptions: step1Question6Options,
-              selectedOption: answersStep1['question6'],
-              onOptionChanged: (selected) => updateAnswer('question6', selected),
+              questionText: step1RadioQuestion['questionText']!,
+              isRadio: step1RadioQuestion['isRadio'],
+              radioOptions: step1RadioQuestion['radioOptions'],
+              selectedOption: answersStep1[step1RadioQuestion['key']],
+              onOptionChanged: (selected) => updateAnswer(step1RadioQuestion['key'], selected),
             ),
           ],
         ),

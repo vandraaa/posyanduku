@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prototype_posyandu/screens/home_screen.dart';
 import '../utilities/constants.dart';
 import '../widgets/button/custom_button.dart';
 
@@ -44,7 +45,12 @@ class SplashScreen extends StatelessWidget {
             child: CustomButton(
               text: 'Next',
               onPressed: () {
-                Navigator.pushReplacementNamed(context, '/home');
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const HomeScreen(),
+                  ),
+                );
               },
             ),
           ),

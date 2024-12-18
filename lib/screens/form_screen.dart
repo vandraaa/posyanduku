@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:prototype_posyandu/screens/find_patients_screen.dart';
 import 'package:prototype_posyandu/widgets/steps/step1.dart';
 import 'package:prototype_posyandu/widgets/steps/step2.dart';
 import 'package:prototype_posyandu/widgets/steps/step3.dart';
+import 'package:prototype_posyandu/widgets/steps/step4.dart';
 
 class FormScreen extends StatefulWidget {
-  const FormScreen({super.key});
+  final Map<String, dynamic>? patientData;
+
+  const FormScreen({
+    super.key,
+    required this.patientData
+  });
 
   @override
   State<FormScreen> createState() => _FormScreenState();
@@ -13,22 +20,10 @@ class FormScreen extends StatefulWidget {
 class _FormScreenState extends State<FormScreen> {
   int _currentStep = 0;
 
-  Map<String, String> _step1Answers = {
-    'question1': '',
-    'question2': '',
-    'question3': '',
-    'question4': '',
-    'question5': '',
-    'question6': '',
-  };
-
-  Map<String, String> _step2Answers = {
-    'question1': '',
-    'question2': '',
-    'question3': '',
-    'question4': '',
-    'question5': '',
-  };
+  Map<String, String> _step1Answers = {};
+  Map<String, String> _step2Answers = {};
+  Map<String, String> _step3Answers = {};
+  String _selectedCategory = ''; 
 
   void _updateStep1Answers(Map<String, String> answers) {
     setState(() {
@@ -42,25 +37,51 @@ class _FormScreenState extends State<FormScreen> {
     });
   }
 
+  void _updateStep3Answers(Map<String, String> answers) {
+    setState(() {
+      _step3Answers = answers;
+    });
+  }
+
+  void _setCategory(String category) {
+    setState(() {
+      _selectedCategory = category;
+    });
+  }
+
   List<Widget> get _stepsContent => [
-    Step1(onUpdateAnswers: _updateStep1Answers, selectedAnswer: _step1Answers),
-    Step2(onUpdateAnswers: _updateStep2Answers, selectedAnswer: _step2Answers),
-    Step3(
-      generalPercentage: _calculateStep1Percentage(),
-      questionnairePercentage: _calculateStep2Percentage(),
-    ),
-  ];
+        Step1(
+          onUpdateAnswers: _updateStep1Answers,
+          selectedAnswer: _step1Answers,
+        ),
+        Step2(
+          onUpdateAnswers: _updateStep2Answers,
+          selectedAnswer: _step2Answers,
+          onCategorySelected: _setCategory,
+        ),
+        Step3(
+          onUpdateAnswers: _updateStep3Answers,
+          selectedAnswer: _step3Answers,
+          selectedCategory: _selectedCategory,
+        ),
+        Step4(
+          generalPercentage: _calculateStep1Percentage(),
+          questionnairePercentage: _calculateStep2Percentage(),
+        ),
+      ];
 
   double _calculateStep1Percentage() {
     int totalQuestions = _step1Answers.length;
-    int answeredQuestions = _step1Answers.values.where((answer) => answer.isNotEmpty).length;
-    return answeredQuestions / totalQuestions;
+    int answeredQuestions =
+        _step1Answers.values.where((answer) => answer.isNotEmpty).length;
+    return totalQuestions == 0 ? 0.0 : answeredQuestions / totalQuestions;
   }
 
   double _calculateStep2Percentage() {
     int totalQuestions = _step2Answers.length;
-    int answeredQuestions = _step2Answers.values.where((answer) => answer.isNotEmpty).length;
-    return answeredQuestions / totalQuestions;
+    int answeredQuestions =
+        _step2Answers.values.where((answer) => answer.isNotEmpty).length;
+    return totalQuestions == 0 ? 0.0 : answeredQuestions / totalQuestions;
   }
 
   void _nextStep() {
@@ -109,7 +130,12 @@ class _FormScreenState extends State<FormScreen> {
             color: Colors.white,
           ),
           onPressed: () {
-            Navigator.pushNamed(context, '/find-patient');
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const FindPatientsScreen(),
+              ),
+            );
           },
         ),
       ),

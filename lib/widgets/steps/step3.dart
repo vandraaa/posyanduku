@@ -1,101 +1,55 @@
 import 'package:flutter/material.dart';
+import 'package:prototype_posyandu/data/question_data.dart';
+import 'package:prototype_posyandu/widgets/questions/questions.dart';
 
 class Step3 extends StatefulWidget {
-  final double generalPercentage;
-  final double questionnairePercentage;
+  final Function(Map<String, String>) onUpdateAnswers;
+  final Map<String, String> selectedAnswer;
+  final String selectedCategory;
 
-  const Step3({super.key, required this.generalPercentage, required this.questionnairePercentage});
+  const Step3({
+    super.key,
+    required this.onUpdateAnswers,
+    required this.selectedAnswer,
+    required this.selectedCategory,
+  });
 
   @override
   State<Step3> createState() => _Step3State();
 }
 
 class _Step3State extends State<Step3> {
+  late Map<String, String> answersStep3;
+
+  @override
+  void initState() {
+    super.initState();
+    answersStep3 = Map.from(widget.selectedAnswer);
+  }
+
+  void updateAnswer(String questionKey, String value) {
+    setState(() {
+      answersStep3[questionKey] = value;
+    });
+    widget.onUpdateAnswers(answersStep3);
+  }
+
   @override
   Widget build(BuildContext context) {
+    List<Map<String, dynamic>> categoryQuestions = questionsForCategory(widget.selectedCategory);
+
     return Scaffold(
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              Image.asset(
-                'assets/images/vector/question-concept.jpeg',
-                width: 250,
-              ),
-              const SizedBox(height: 20),
-              const Text(
-                'Apakah Anda yakin akan menyimpan data ini?',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontFamily: 'Poppins',
-                  fontWeight: FontWeight.bold,
-                ),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 30),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text(
-                          'Umum',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        Text(
-                          '${(widget.generalPercentage * 100.0).toStringAsFixed(1)}%',
-                          style: const TextStyle(
-                            fontSize: 13,
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.w600,
-                          ),
-                        )
-                      ]),
-                  const SizedBox(height: 5),
-                  LinearProgressIndicator(
-                    value: widget.generalPercentage,
-                    backgroundColor: Colors.grey[300],
-                    color: Colors.blue,
-                    minHeight: 8,
-                  ),
-                  const SizedBox(height: 20),
-                  Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text(
-                          'Kuisioner',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        Text(
-                          '${(widget.questionnairePercentage * 100.0).toStringAsFixed(1)}%',
-                          style: const TextStyle(
-                            fontSize: 13,
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.w600,
-                          ),
-                        )
-                      ]),
-                  const SizedBox(height: 5),
-                  LinearProgressIndicator(
-                    value: widget.questionnairePercentage,
-                    backgroundColor: Colors.grey[300],
-                    color: Colors.green,
-                    minHeight: 8,
-                  ),
-                ],
-              ),
-            ],
-          ),
+        child: Column(
+          children: categoryQuestions.map((question) {
+            return QuestionWidget(
+              questionText: question['questionText']!,
+              isRadio: true,
+              radioOptions: List<String>.from(question['options'] ?? ['Ya', 'Tidak']),
+              selectedOption: answersStep3[question['key']],
+              onOptionChanged: (selected) => updateAnswer(question['key']!, selected),
+            );
+          }).toList(),
         ),
       ),
     );

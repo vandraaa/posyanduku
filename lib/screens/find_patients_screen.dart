@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:prototype_posyandu/data/patient_service_data.dart';
+import 'package:prototype_posyandu/screens/form_screen.dart';
+import 'package:prototype_posyandu/screens/home_screen.dart';
 import 'package:prototype_posyandu/widgets/patient/patient_card.dart';
 
 class FindPatientsScreen extends StatefulWidget {
@@ -17,7 +19,7 @@ class _FindPatientsScreenState extends State<FindPatientsScreen> {
   List<dynamic> _filteredPatients = [];
   bool _isLoading = false;
   String? _errorMessage;
-  String? selectedPatientId;
+  Map<String, dynamic>? selectedPatient;
 
   @override
   void initState() {
@@ -57,14 +59,12 @@ class _FindPatientsScreenState extends State<FindPatientsScreen> {
       });
     } else {
       setState(() {
-        _filteredPatients = _patients
-            .where((patient) {
-              final value = _selectedTabIndex == 0
-                  ? patient['nik'].toString()
-                  : patient['nama'].toString().toLowerCase();
-              return value.contains(query);
-            })
-            .toList();
+        _filteredPatients = _patients.where((patient) {
+          final value = _selectedTabIndex == 0
+              ? patient['nik'].toString()
+              : patient['nama'].toString().toLowerCase();
+          return value.contains(query);
+        }).toList();
       });
     }
   }
@@ -81,7 +81,12 @@ class _FindPatientsScreenState extends State<FindPatientsScreen> {
             color: Colors.black,
           ),
           onPressed: () {
-            Navigator.pushNamed(context, '/home');
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const HomeScreen(),
+              ),
+            );
           },
         ),
       ),
@@ -122,7 +127,7 @@ class _FindPatientsScreenState extends State<FindPatientsScreen> {
                   fontFamily: 'Poppins',
                   fontWeight: FontWeight.w400,
                   fontSize: 12,
-                ), 
+                ),
                 hintText: _selectedTabIndex == 0
                     ? 'Cari berdasarkan NIK'
                     : 'Cari berdasarkan Nama',
@@ -131,11 +136,29 @@ class _FindPatientsScreenState extends State<FindPatientsScreen> {
                   borderRadius: BorderRadius.circular(30),
                 ),
               ),
-              keyboardType: _selectedTabIndex == 0 ? TextInputType.number : TextInputType.text,
+              keyboardType: _selectedTabIndex == 0
+                  ? TextInputType.number
+                  : TextInputType.text,
             ),
             const SizedBox(height: 16),
             if (_isLoading)
-              const Center(child: CircularProgressIndicator())
+              const Center(
+                  child: Column(
+                children: [
+                  SizedBox(height: 30),
+                  CircularProgressIndicator(),
+                  SizedBox(height: 16),
+                  Text(
+                    'Mengambil data pasien...',
+                    style: TextStyle(
+                      fontFamily: 'Poppins',
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.grey,
+                    ),
+                  ),
+                ],
+              ))
             else if (_errorMessage != null)
               Center(
                 child: Text(
@@ -163,11 +186,11 @@ class _FindPatientsScreenState extends State<FindPatientsScreen> {
                           final patient = _filteredPatients[index];
                           return PatientCard(
                             patient: patient,
-                            isSelected:
-                                selectedPatientId == patient['nik'].toString(),
+                            isSelected: selectedPatient?['nik'] ==
+                                patient['nik'].toString(),
                             onSelect: () {
                               setState(() {
-                                selectedPatientId = patient['nik'].toString();
+                                selectedPatient = patient;
                               });
                             },
                           );
@@ -175,33 +198,37 @@ class _FindPatientsScreenState extends State<FindPatientsScreen> {
                       ),
               ),
             const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: selectedPatientId != null
-                  ? () {
-                      Navigator.pushNamed(
-                        context,
-                        '/form',
-                        arguments: selectedPatientId,
-                      );
-                    }
-                  : null,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue,
-                padding: const EdgeInsets.symmetric(vertical: 16),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
+            if (!_isLoading)
+              ElevatedButton(
+                onPressed: selectedPatient != null
+                    ? () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => FormScreen(
+                              patientData: selectedPatient,
+                            ),
+                          ),
+                        );
+                      }
+                    : null,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blue,
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                child: const Text(
+                  'Next',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontFamily: 'Poppins',
+                    fontWeight: FontWeight.w500,
+                    fontSize: 18,
+                  ),
                 ),
               ),
-              child: const Text(
-                'Next',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontFamily: 'Poppins',
-                  fontWeight: FontWeight.w500,
-                  fontSize: 18,
-                ),
-              ),
-            ),
           ],
         ),
       ),

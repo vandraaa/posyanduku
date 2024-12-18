@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prototype_posyandu/screens/target_data_screen.dart';
 
 class OtherServices extends StatelessWidget {
   const OtherServices({super.key});
@@ -19,7 +20,12 @@ class OtherServices extends StatelessWidget {
         const SizedBox(height: 10),
         GestureDetector(
           onTap: () {
-            Navigator.pushReplacementNamed(context, '/target-data');
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const TargetDataScreen(),
+              ),
+            );
           },
           child: ClipRRect(
             borderRadius: BorderRadius.circular(12),
