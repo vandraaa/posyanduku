@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:print_bluetooth_thermal/print_bluetooth_thermal.dart';
 
 class BluetoothPrintScreen extends StatefulWidget {
+  const BluetoothPrintScreen({super.key});
+
   @override
   _BluetoothPrintScreenState createState() => _BluetoothPrintScreenState();
 }
@@ -67,7 +69,7 @@ class _BluetoothPrintScreenState extends State<BluetoothPrintScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Print Button"),
+        title: const Text("Print Button"),
         centerTitle: true,
       ),
       body: Center(
@@ -78,7 +80,7 @@ class _BluetoothPrintScreenState extends State<BluetoothPrintScreen> {
                   await printTestText();
                 }
               : null,
-          child: Text(
+          child: const Text(
             "Print",
             style: TextStyle(fontSize: 18),
           ),

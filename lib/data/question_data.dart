@@ -90,7 +90,7 @@ List<Map<String, dynamic>> questionsForCategory(String category) {
           'options': [
             'Tidak pernah',
             'Saat aktivitas berat (misalnya berolahraga)',
-            'Saat aktivitas ringan (misalnya berjalan di dataran)',
+            'Saat aktivitas ringan \n(misalnya berjalan di dataran)',
             'Saat istirahat',
           ],
         },
