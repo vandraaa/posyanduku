@@ -79,7 +79,7 @@ class PreviewAnswerScreen extends StatelessWidget {
             ),
             // Display Step 1 answers
             Text(
-              'Umumm',
+              'Umum',
               style: Theme.of(context).textTheme.titleLarge,
             ),
             ...step1Questions.map((question) {
