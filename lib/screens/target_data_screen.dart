@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:prototype_posyandu/screens/home_screen.dart';
 import 'package:prototype_posyandu/utilities/constants.dart';
 import 'package:prototype_posyandu/data/patient_service_data.dart';
 import 'package:prototype_posyandu/widgets/patient/patient_card.dart';
@@ -77,12 +76,7 @@ class _TargetDataScreenState extends State<TargetDataScreen> {
             color: Colors.black,
           ),
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const HomeScreen(),
-              ),
-            );
+            Navigator.pop(context);
           },
         ),
       ),
