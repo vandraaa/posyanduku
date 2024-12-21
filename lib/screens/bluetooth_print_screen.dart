@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:print_bluetooth_thermal/print_bluetooth_thermal.dart';
 
 class BluetoothPrintScreen extends StatefulWidget {
+  const BluetoothPrintScreen({super.key});
+
   @override
   _BluetoothPrintScreenState createState() => _BluetoothPrintScreenState();
 }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:prototype_posyandu/data/patient_service_data.dart';
 import 'package:prototype_posyandu/screens/form_screen.dart';
-import 'package:prototype_posyandu/screens/home_screen.dart';
 import 'package:prototype_posyandu/widgets/patient/patient_card.dart';
 
 class FindPatientsScreen extends StatefulWidget {
@@ -81,12 +80,7 @@ class _FindPatientsScreenState extends State<FindPatientsScreen> {
             color: Colors.black,
           ),
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const HomeScreen(),
-              ),
-            );
+            Navigator.pop(context);
           },
         ),
       ),
