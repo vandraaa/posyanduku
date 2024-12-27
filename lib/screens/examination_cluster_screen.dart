@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:prototype_posyandu/widgets/home/cluster_services.dart';
 import 'package:prototype_posyandu/widgets/home/connection_status_bar.dart';
+import 'package:prototype_posyandu/widgets/navbar/bottom_navbar.dart';
 import '../widgets/home/user_welcome.dart';
 import '../utilities/internet_checker.dart';
 import '../widgets/home/information_home.dart';
@@ -15,6 +16,7 @@ class ExaminationClusterScreen extends StatefulWidget {
 class _ExaminationClusterScreenState extends State<ExaminationClusterScreen> {
   bool isOnline = true;
   bool isChecked = false;
+  int _currentIndex = 0;
 
   @override
   void initState() {
@@ -63,6 +65,10 @@ class _ExaminationClusterScreenState extends State<ExaminationClusterScreen> {
           ],
         ),
       ),
+      bottomNavigationBar: BottomNavBar(
+        currentIndex: _currentIndex,
+        onTap: (index) => setState(() => _currentIndex = index),
+      )
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prototype_posyandu/screens/target_data_detail_screen.dart';
 import 'package:prototype_posyandu/utilities/constants.dart';
 import 'package:prototype_posyandu/data/patient_service_data.dart';
 import 'package:prototype_posyandu/widgets/patient/patient_card.dart';
@@ -11,7 +12,7 @@ class TargetDataScreen extends StatefulWidget {
 }
 
 class _TargetDataScreenState extends State<TargetDataScreen> {
-  String activeCategory = 'Bayi & Balita';
+  String activeCategory = 'Semua';
   List<dynamic> patients = [];
   List<dynamic> filteredPatients = [];
   bool isLoading = false;
@@ -90,26 +91,25 @@ class _TargetDataScreenState extends State<TargetDataScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Cari Data Sasaran',
-                      style: TextStyle(
-                        fontFamily: 'Poppins',
-                        fontWeight: FontWeight.w600,
-                        fontSize: 20,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Cari Data Sasaran',
+                        style: TextStyle(
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.w600,
+                          fontSize: 20,
+                        ),
                       ),
-                    ),
-                    Text(
-                      targetDataDesc,
-                      style: TextStyle(
-                        fontFamily: 'Poppins',
-                        fontWeight: FontWeight.w400,
-                        fontSize: 12,
+                      Text(
+                        targetDataDesc,
+                        style: TextStyle(
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.w400,
+                          fontSize: 12,
+                        ),
                       ),
-                    ),
-                  ]
-                ),
+                    ]),
                 Image.asset(
                   'assets/images/vector/doctor.png',
                   width: 110,
@@ -125,7 +125,7 @@ class _TargetDataScreenState extends State<TargetDataScreen> {
                   fontFamily: 'Poppins',
                   fontWeight: FontWeight.w400,
                   fontSize: 12,
-                ), 
+                ),
                 hintText: 'Cari data berdasarkan nama atau NIK.....',
                 prefixIcon: const Icon(Icons.search),
                 border: OutlineInputBorder(
@@ -148,6 +148,8 @@ class _TargetDataScreenState extends State<TargetDataScreen> {
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: [
+                  _buildCategoryChip('Semua', Sasaran.semua),
+                  const SizedBox(width: 8),
                   _buildCategoryChip('Bayi & Balita', Sasaran.balita),
                   const SizedBox(width: 8),
                   _buildCategoryChip('Remaja', Sasaran.remaja),
@@ -174,7 +176,23 @@ class _TargetDataScreenState extends State<TargetDataScreen> {
                     return PatientCard(
                       patient: filteredPatients[index],
                       isSelected: false,
-                      onSelect: () {},
+                      onSelect: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => TargetDataDetailScreen(
+                              patient: {
+                                'nik': filteredPatients[index]['nik'],
+                                'nama': filteredPatients[index]['nama'],
+                                'jenis_kelamin': filteredPatients[index]
+                                    ['jenis_kelamin'],
+                                'kategori': activeCategory,
+                                'no_telp': '081234567890',
+                              },
+                            ),
+                          ),
+                        );
+                      },
                     );
                   },
                 ),

@@ -34,34 +34,77 @@ class PatientCard extends StatelessWidget {
             ),
           ],
         ),
-        child: Column(
+        child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              patient['nama'],
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 16,
-                fontFamily: 'Poppins',
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    patient['nama'],
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15,
+                      fontFamily: 'Poppins',
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    '${patient['nik']}',
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 12.5,
+                      fontFamily: 'Poppins',
+                    ),
+                  ),
+                  Text(
+                    'Alamat: ${patient['alamat']}',
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 12.5,
+                      fontFamily: 'Poppins',
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Row(
+                    children: [
+                      Icon(
+                        patient['jenis_kelamin'] == 'L'
+                            ? Icons.male
+                            : Icons.female,
+                        color: patient['jenis_kelamin'] == 'L'
+                            ? Colors.blue
+                            : Colors.pink,
+                        size: 16,
+                      ),
+                      const SizedBox(width: 2),
+                      Text(
+                        patient['jenis_kelamin'] == 'L'
+                            ? 'Laki-laki'
+                            : 'Perempuan',
+                        style: TextStyle(
+                          fontSize: 13,
+                          color: patient['jenis_kelamin'] == 'L' ? Colors.blue : Colors.pink,
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
-            const SizedBox(height: 4),
-            Text('NIK: ${patient['nik']}',
-                style: const TextStyle(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 12.5,
-                  fontFamily: 'Poppins',
-                )),
-            Text('Alamat: ${patient['alamat']}',
-                style: const TextStyle(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 12.5,
-                  fontFamily: 'Poppins',
-                )),
-            const SizedBox(height: 4),
-            Text(
-              patient['jenis_kelamin'] == 'L' ? 'Laki-laki' : 'Perempuan',
-              style: const TextStyle(fontSize: 13, color: Colors.grey, fontFamily: 'Poppins', fontWeight: FontWeight.w500),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: Image.asset(
+                patient['jenis_kelamin'] == 'L'
+                    ? 'assets/images/vector/male.png'
+                    : 'assets/images/vector/female.png',
+                width: 80,
+                height: 80,
+                fit: BoxFit.cover,
+              ),
             ),
           ],
         ),

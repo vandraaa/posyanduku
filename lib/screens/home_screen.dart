@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:prototype_posyandu/widgets/home/main_services.dart';
 import 'package:prototype_posyandu/widgets/home/connection_status_bar.dart';
 import 'package:prototype_posyandu/widgets/home/target_stats_slider.dart';
+import 'package:prototype_posyandu/widgets/navbar/bottom_navbar.dart';
 import '../widgets/home/user_welcome.dart';
 import '../utilities/internet_checker.dart';
 
@@ -15,6 +16,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   bool isOnline = true;
   bool isChecked = false;
+  int _currentIndex = 0;
 
   @override
   void initState() {
@@ -63,6 +65,10 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
+      bottomNavigationBar: BottomNavBar(
+        currentIndex: _currentIndex,
+        onTap: (index) => setState(() => _currentIndex = index),
+      )
     );
   }
 }
