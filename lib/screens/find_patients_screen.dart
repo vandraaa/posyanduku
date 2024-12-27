@@ -60,7 +60,7 @@ class _FindPatientsScreenState extends State<FindPatientsScreen> {
       setState(() {
         _filteredPatients = _patients.where((patient) {
           final value = _selectedTabIndex == 0
-              ? patient['nik'].toString()
+              ? patient['nikk'].toString()
               : patient['nama'].toString().toLowerCase();
           return value.contains(query);
         }).toList();
