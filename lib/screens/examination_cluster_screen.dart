@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:prototype_posyandu/widgets/home/main_services.dart';
+import 'package:prototype_posyandu/widgets/home/cluster_services.dart';
 import 'package:prototype_posyandu/widgets/home/connection_status_bar.dart';
-import 'package:prototype_posyandu/widgets/home/target_stats_slider.dart';
 import '../widgets/home/user_welcome.dart';
 import '../utilities/internet_checker.dart';
+import '../widgets/home/information_home.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class ExaminationClusterScreen extends StatefulWidget {
+  const ExaminationClusterScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<ExaminationClusterScreen> createState() => _ExaminationClusterScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _ExaminationClusterScreenState extends State<ExaminationClusterScreen> {
   bool isOnline = true;
   bool isChecked = false;
 
@@ -54,11 +54,11 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             Padding(
               padding: EdgeInsets.all(16.0),
-              child: TargetStatsSlider(),
+              child: InformationHome(),
             ),
             Padding(
               padding: EdgeInsets.fromLTRB(16, 15, 16, 15),
-              child: MainServices(),
+              child: ClusterServices(),
             ),
           ],
         ),
