@@ -2,11 +2,13 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:prototype_posyandu/utilities/constants.dart';
 
-enum Sasaran { dewasa, remaja, balita, hamil }
+enum Sasaran { semua, dewasa, remaja, balita, hamil }
 
 extension SasaranExtension on Sasaran {
   String get name {
     switch (this) {
+      case Sasaran.semua:
+        return 'dewasa';
       case Sasaran.dewasa:
         return 'dewasa';
       case Sasaran.remaja:
