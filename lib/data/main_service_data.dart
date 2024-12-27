@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:prototype_posyandu/screens/examination_cluster_screen.dart';
 import 'package:prototype_posyandu/screens/target_data_screen.dart';
+import 'package:prototype_posyandu/screens/rekap_pemeriksaan.dart';
+import 'package:prototype_posyandu/screens/edukasi_screen.dart';
 
 class MainServiceData {
   final String imagePath;
@@ -24,9 +26,12 @@ final List<MainServiceData> mainServices = [
   MainServiceData(
     imagePath: 'assets/images/main_service/rekap_pemeriksaan.jpg',
     title: 'Rekap Pemeriksaan',
+        navigation: const RekapPemeriksaanScreen()
   ),
   MainServiceData(
     imagePath: 'assets/images/main_service/edukasi.jpeg',
     title: 'Edukasi',
+            navigation:  EdukasiScreen()
+
   ),
 ];
