@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:prototype_posyandu/screens/target_data_detail_screen.dart';
 import 'package:prototype_posyandu/utilities/constants.dart';
 import 'package:prototype_posyandu/data/patient_service_data.dart';
-import 'package:prototype_posyandu/widgets/patient/patient_card.dart';
+import 'package:prototype_posyandu/widgets/card/patient_card.dart';
 
 class TargetDataScreen extends StatefulWidget {
   const TargetDataScreen({super.key});

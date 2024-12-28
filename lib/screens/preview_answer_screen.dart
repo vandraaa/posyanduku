@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:prototype_posyandu/data/question_data.dart';
 import 'package:prototype_posyandu/screens/bluetooth_print_screen.dart';
-import 'package:prototype_posyandu/widgets/patient/patient_card.dart';
+import 'package:prototype_posyandu/widgets/card/patient_card.dart';
 import 'package:prototype_posyandu/widgets/questions/question_answer.dart';
 
 class PreviewScreen extends StatelessWidget {

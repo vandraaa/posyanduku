@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:prototype_posyandu/data/patient_service_data.dart';
 import 'package:prototype_posyandu/screens/form_screen.dart';
-import 'package:prototype_posyandu/widgets/patient/patient_card.dart';
+import 'package:prototype_posyandu/widgets/card/patient_card.dart';
 
 class FindPatientsScreen extends StatefulWidget {
   const FindPatientsScreen({super.key});

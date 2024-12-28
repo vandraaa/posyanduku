@@ -69,6 +69,7 @@ flutter:
   - assets/images/rekap/
   - assets/images/vector/
   - assets/images/main_service/
+  - assets/images/education/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

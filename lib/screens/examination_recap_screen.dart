@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class RekapPemeriksaanScreen extends StatelessWidget {
-  const RekapPemeriksaanScreen({super.key});
+class ExaminationRecapScreen extends StatelessWidget {
+  const ExaminationRecapScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
