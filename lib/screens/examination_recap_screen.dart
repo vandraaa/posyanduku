@@ -21,7 +21,8 @@ class ExaminationRecapScreen extends StatelessWidget {
             child: const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Center(
+                Align(
+                  alignment: Alignment.topCenter, // Atur posisi ke atas
                   child: Text(
                     'Halo Kevin',
                     style: TextStyle(
@@ -43,6 +44,7 @@ class ExaminationRecapScreen extends StatelessWidget {
                     ),
                   ),
                 ),
+                SizedBox(height: 20),
               ],
             ),
           ),
@@ -82,7 +84,7 @@ class ExaminationRecapScreen extends StatelessWidget {
                 ],
               ),
             ),
-          ),
+          )
         ],
       ),
     );
