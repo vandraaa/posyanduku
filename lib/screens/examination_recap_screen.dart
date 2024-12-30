@@ -90,7 +90,7 @@ class ExaminationRecapScreen extends StatelessWidget {
 
   Widget _buildImageItem(String imagePath) {
     return Container(
-      height: 120,
+      height: 115,
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         border: Border.all(color: Colors.white, width: 1),
