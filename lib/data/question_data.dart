@@ -38,14 +38,6 @@ const List<Map<String, dynamic>> step1Questions = [
   },
 ];
 
-const Map<String, dynamic> step1RadioQuestion = {
-  'questionText': 'Rujuk',
-  'key': 'question6',
-  'isRadio': true,
-  'radioOptions': ['Ya', 'Tidak'],
-};
-
-
 // option step 2
 const List<Map<String, String>> questionnareOptions = [
   {

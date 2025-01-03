@@ -65,7 +65,7 @@ class _FormScreenState extends State<FormScreen> {
       ];
 
   double _calculateStep1Percentage() {
-    int totalQuestions = step1Questions.length + 1;
+    int totalQuestions = step1Questions.length;
     int answeredQuestions =
         _step1Answers.values.where((answer) => answer.isNotEmpty).length;
     return totalQuestions == 0 ? 0.0 : answeredQuestions / totalQuestions;
