@@ -237,6 +237,7 @@ class _FindPatientsScreenState extends State<FindPatientsScreen> {
           _searchController.clear();
           _filterPatients();
         });
+        FocusScope.of(context).unfocus();
       },
       child: Column(
         children: [

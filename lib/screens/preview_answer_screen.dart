@@ -82,10 +82,6 @@ class PreviewScreen extends StatelessWidget {
                     general['question${index + 1}'].toString(),
                   ),
                 ),
-                buildQuestionAnswer(
-                  "${step1Questions.length + 1}. ${step1RadioQuestion['questionText']}",
-                  general['question6'].toString(),
-                ),
                 const SizedBox(height: 30),
                 Text(
                   'Kuisioner ($questionnaireType)',

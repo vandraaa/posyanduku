@@ -22,7 +22,7 @@ class ExaminationRecapScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Align(
-                  alignment: Alignment.topCenter, // Atur posisi ke atas
+                  alignment: Alignment.topCenter,
                   child: Text(
                     'Halo Kevin',
                     style: TextStyle(
@@ -51,36 +51,17 @@ class ExaminationRecapScreen extends StatelessWidget {
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(16.0),
-              child: Column(
+              child: ListView(
                 children: [
-                  Container(
-                    height: 120,
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.white, width: 1),
-                      borderRadius: BorderRadius.circular(8),
-                      image: const DecorationImage(
-                        image: AssetImage('assets/images/rekap/1.png'),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  Expanded(
-                    child: ListView(
-                      children: [
-                        _buildImageItem('assets/images/rekap/2.png'),
-                        const SizedBox(height: 16),
-                        _buildImageItem('assets/images/rekap/3.png'),
-                        const SizedBox(height: 16),
-                        _buildImageItem('assets/images/rekap/4.png'),
-                        const SizedBox(height: 16),
-                        _buildImageItem('assets/images/rekap/5.png'),
-                        const SizedBox(height: 16),
-                        _buildImageItem('assets/images/rekap/6.png'),
-                      ],
-                    ),
-                  ),
+                  _buildImageItem('assets/images/rekap/2.png'),
+                  const SizedBox(height: 8),
+                  _buildImageItem('assets/images/rekap/3.png'),
+                  const SizedBox(height: 8),
+                  _buildImageItem('assets/images/rekap/4.png'),
+                  const SizedBox(height: 8),
+                  _buildImageItem('assets/images/rekap/5.png'),
+                  const SizedBox(height: 8),
+                  _buildImageItem('assets/images/rekap/6.png'),
                 ],
               ),
             ),

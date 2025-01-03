@@ -130,14 +130,6 @@ class _Step1State extends State<Step1> {
                       ? (value) => updateAnswer(question['key'], value)
                       : null,
                 )),
-            QuestionWidget(
-              questionText: step1RadioQuestion['questionText']!,
-              isRadio: step1RadioQuestion['isRadio'],
-              radioOptions: step1RadioQuestion['radioOptions'],
-              selectedOption: answersStep1[step1RadioQuestion['key']],
-              onOptionChanged: (selected) =>
-                  updateAnswer(step1RadioQuestion['key'], selected),
-            ),
           ],
         ),
       ),
